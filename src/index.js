@@ -4,7 +4,8 @@ const express = require('express');
 const app = express();
 
 //  Settings
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 3000); // process.env.PORT nos indica que si existe un puerto libre en nuestra computadora, lo tome
+// de lo contrario toma el 3000.
 
 // Middlewares
 
