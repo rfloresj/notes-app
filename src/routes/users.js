@@ -34,7 +34,7 @@ router.post('/users/signup', async (req, res) => {
     if(errors.length > 0){
         res.render('users/signup', {errors, name, email, password, confirm_password});
     } else {
-        const emailUser = await User.findOne({email: email});
+        const emailUser = await User.findOne({email: email}).lean();
         if(emailUser){
             req.flash('error_msg', 'The email is already in use');
             res.redirect('/users/signup');
@@ -46,5 +46,17 @@ router.post('/users/signup', async (req, res) => {
         res.redirect('/users/signin');
     }
 });
+
+router.get('/users/logout', function(req, res, next) {
+    req.logout(function(err) {
+      if (err) { return next(err); }
+      res.redirect('/');
+    });
+  });
+
+/* router.get('/users/logout', (req, res) => {
+    req.logout();
+    res.redirect('/');
+}); */
 
 module.exports = router;
